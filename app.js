@@ -421,6 +421,8 @@ let allPrintablePdfs = [];
 let docCounts = {};
 let finalBuyDocs = new Set();
 let finalSellDocs = new Set();
+let buyDocCounts = {};
+let sellDocCounts = {};
 
 function showResult() {
     switchScreen('result-screen');
@@ -438,8 +440,8 @@ function showResult() {
     currentFinalDocs.clear();
     allPrintablePdfs = [];
     docCounts = {}; // 合計枚数用
-    const buyDocCounts = {}; // 購入セクション用
-    const sellDocCounts = {}; // 売却セクション用
+    buyDocCounts = {}; // 購入セクション用
+    sellDocCounts = {}; // 売却セクション用
     const buyDocsArray = [];
     const sellDocsArray = [];
 
@@ -675,18 +677,19 @@ async function printAllDocs() {
     const loadingOverlay = document.getElementById('loading-overlay');
     loadingOverlay.style.display = 'flex';
 
-    // 印刷前に最新の状態からリストを強制的に再構築する（累積防止）
-    rebuildPrintQueue();
-
-    console.log("一括印刷プロセス開始. 予約数:", allPrintablePdfs.length);
-
-    if (allPrintablePdfs.length === 0) {
-        alert("印刷可能な書類データがありません。");
-        loadingOverlay.style.display = 'none';
-        return;
-    }
-
     try {
+        // 印刷前に最新の状態からリストを強制的に再構築する（累積防止）
+        rebuildPrintQueue();
+
+        console.log("一括印刷プロセス開始. 予約数:", allPrintablePdfs.length);
+
+        if (allPrintablePdfs.length === 0) {
+            alert("印刷可能な書類データがありません。");
+            loadingOverlay.style.display = 'none';
+            if (printBtn) printBtn.disabled = false;
+            return;
+        }
+
         const { PDFDocument } = PDFLib;
         const mergedPdf = await PDFDocument.create();
 
