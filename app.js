@@ -221,7 +221,7 @@ const docExplanations = {
 // 状態管理
 let currentQuestionId = "q1";
 let history = []; // 戻る用
-let collectedSets = new Set(); // 収集した書類セットのID
+let collectedSets = []; // 収集した書類セットのID
 
 // 設定管理
 const defaultSettings = {
