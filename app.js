@@ -419,6 +419,8 @@ const pdfFiles = {
 let currentFinalDocs = new Set();
 let allPrintablePdfs = [];
 let docCounts = {};
+let finalBuyDocs = new Set();
+let finalSellDocs = new Set();
 
 function showResult() {
     switchScreen('result-screen');
@@ -459,8 +461,8 @@ function showResult() {
         }
     });
     
-    const finalBuyDocs = new Set(buyDocsArray);
-    const finalSellDocs = new Set(sellDocsArray);
+    finalBuyDocs = new Set(buyDocsArray);
+    finalSellDocs = new Set(sellDocsArray);
 
     // 所有権解除（信販会社）の場合の特殊処理
     if (collectedSets.includes('C')) {
