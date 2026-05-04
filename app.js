@@ -639,9 +639,9 @@ function rebuildPrintQueue() {
 function generateShareLink() {
     // 現在のURLを取得し、クエリパラメータを付ける
     let origin = window.location.origin;
-    // PC上でlocalhostとして開いている場合でも、スマホ等からアクセスできるように公開URLに自動変換する
+    // ローカル開発環境の場合はGitHub PagesのURLをベースにする
     if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('172.18')) {
-        origin = 'https://taupe-douhua-b1da3c.netlify.app';
+        origin = 'https://naruhei.github.io';
     }
     const baseUrl = origin + window.location.pathname;
     
